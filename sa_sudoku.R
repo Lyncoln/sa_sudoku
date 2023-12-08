@@ -225,4 +225,8 @@ sudoku_matrix = sudoku::generateSudoku(51)
 # 0,0,0,0,8,0,0,7,9)
 #sudoku_matrix <- matrix(vetor, nrow = 9, byrow = TRUE)
 
-resolve_sudoku(sudoku_matrix, 0.5, 100000)
+
+{
+  replot(sudoku_matrix,retorna_originais(sudoku_matrix))
+  resolve_sudoku(sudoku_matrix, 0.5, 100000)
+}

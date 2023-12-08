@@ -1,0 +1,410 @@
+---
+title: "Utilizando Simulated Annealing para Resolver Sudoku"
+author: "Lyncoln Sousa de Oliveira"
+date: ""
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+bibliography: referencias.bib
+csl: referencias.csl
+---
+<style>
+body {
+  text-align: justify;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+## O que é Sudoku? 
+
+O Sudoku é um dos jogos do tipo de quebra-cabeças mais conhecidos do mundo, tendo suas raízes na cultura japonesa. A palavra "sudoku" é a junção de duas palavras japonesas, onde "su" significa número e doku "único". O Sudoku pode ser traduzido como "números únicos", o seu próprio nome já trás a ideia principal de como deve ser resolvido.
+
+O Sudoku é um jogo baseado na colocação lógica de números. Pode ser encontrado em uma variedade de configurações, sendo o clássico representado por uma matriz 9x9 que é divida em 9 submatrizes 3x3. O objetivo do jogo é a colocação de números de 1 a 9 em cada uma das células vazias da matriz. O quebra-cabeça contém algumas pistas iniciais, que são números inseridos em algumas células, de maneira a permitir uma indução ou dedução dos números em células que estejam vazias. Resolver o problema requer apenas raciocínio lógico e algum tempo. O Sudoku possui apenas 3 regras, que são:
+
+1. Cada linha da matriz 9x9 deve possuir somente números diferentes de 1 a 9.
+2. Cada coluna da matriz 9x9 deve possuir somente números diferentes de 1 a 9.
+3. Cada submatriz 3x3 deve possuir somente números diferentes de 1 a 9.
+
+Um exemplo clássico de uma configuração do quebra cabeça sudoku é dado pela Figura a seguir, onde os números em verde não podem ser alterados para resolução do quebra-cabeça.
+```{r, echo = FALSE}
+replot <- function(z, originais) {
+  par(mar = c(0, 0, 0, 0), bg = "white")
+  plot(0.5:9.5, 0.5:9.5, type = "n", axes = FALSE, xlab = "", ylab = "")
+  segments(0.5:9.5, rep(0.5, 10), 0.5:9.5, rep(9.5, 10), col = "grey")
+  segments(rep(0.5, 10), 0.5:9.5, rep(9.5, 10), 0.5:9.5, col = "grey")
+  segments(c(0, 3, 6, 9) + 0.5, rep(0.5, 4), c(0, 3, 6, 9) + 0.5, rep(9.5, 4), lwd = 3)
+  segments(rep(0.5, 4), c(0, 3, 6, 9) + 0.5, rep(9.5, 4), c(0, 3, 6, 9) + 0.5, lwd = 3)
+  
+  
+  for (i in 1:9) {
+    for (j in 1:9) {
+      if (z[i, j]) {
+        if(originais[i,j]){
+          text(j, 10 - i, z[i, j], col = "#00613c", font = 2, cex = 1.8)
+        }
+        else{
+          text(j, 10 - i, z[i, j], col = "#870a28", font = 2, cex = 1.8)
+        }
+      }
+    }
+  }
+}
+
+retorna_originais = function(z){
+  coordenadas = matrix(FALSE, ncol = 9, nrow = 9)
+  coordenadas = z>0
+  return(coordenadas)
+}
+
+vetor <- c(5,3,0,0,7,0,0,0,0,
+6,0,0,1,9,5,0,0,0,
+0,9,8,0,0,0,0,6,0,
+8,0,0,0,6,0,0,0,3,
+4,0,0,8,0,3,0,0,1,
+7,0,0,0,2,0,0,0,6,
+0,6,0,0,0,0,2,8,0,
+0,0,0,4,1,9,0,0,5,
+0,0,0,0,8,0,0,7,9)
+sudoku_matrix <- matrix(vetor, nrow = 9, byrow = TRUE)
+
+
+replot(sudoku_matrix,retorna_originais(sudoku_matrix))
+
+
+```
+
+Sua solução é dada pela seguinte Figura, onde os números em vermelho são atribuídos pelo jogador.
+```{r,echo=FALSE}
+set.seed(041123)
+
+replot <- function(z, originais) {
+  par(mar = c(0, 0, 0, 0), bg = "white")
+  plot(0.5:9.5, 0.5:9.5, type = "n", axes = FALSE, xlab = "", ylab = "")
+  segments(0.5:9.5, rep(0.5, 10), 0.5:9.5, rep(9.5, 10), col = "grey")
+  segments(rep(0.5, 10), 0.5:9.5, rep(9.5, 10), 0.5:9.5, col = "grey")
+  segments(c(0, 3, 6, 9) + 0.5, rep(0.5, 4), c(0, 3, 6, 9) + 0.5, rep(9.5, 4), lwd = 3)
+  segments(rep(0.5, 4), c(0, 3, 6, 9) + 0.5, rep(9.5, 4), c(0, 3, 6, 9) + 0.5, lwd = 3)
+  
+  
+  for (i in 1:9) {
+    for (j in 1:9) {
+      if (z[i, j]) {
+        if(originais[i,j]){
+          text(j, 10 - i, z[i, j], col = "#00613c", font = 2, cex = 1.8)
+        }
+        else{
+          text(j, 10 - i, z[i, j], col = "#870a28", font = 2, cex = 1.8)
+        }
+      }
+    }
+  }
+}
+retorna_originais = function(z){
+  coordenadas = matrix(FALSE, ncol = 9, nrow = 9)
+  coordenadas = z>0
+  return(coordenadas)
+}
+divide_matrizes <- function(matrix_9x9) {
+  submatrizes <- list()
+  
+  for (i in 1:3) {
+    for (j in 1:3) {
+      submatriz <- matrix_9x9[((i - 1) * 3 + 1):(i * 3), ((j - 1) * 3 + 1):(j * 3)]
+      submatrizes[[paste("Submatrix", i, j, sep = "_")]] <- submatriz
+    }
+  }
+  
+  return(submatrizes)
+}
+junta_matrizes <- function(submatrizes) {
+  matriz_9x9 <- matrix(0, nrow = 9, ncol = 9)
+  
+  for (i in 1:3) {
+    for (j in 1:3) {
+      submatriz <- submatrizes[[paste("Submatrix", i, j, sep = "_")]]
+      start_row <- ((i - 1) * 3) + 1
+      start_col <- ((j - 1) * 3) + 1
+      end_row <- start_row + 2
+      end_col <- start_col + 2
+      
+      matriz_9x9[start_row:end_row, start_col:end_col] <- submatriz
+    }
+  }
+  
+  return(matriz_9x9)
+}
+funcao_avaliacao = function(z){
+  linha = 0
+  coluna = 0
+  submatrizes = 0
+  for(i in 1:9){
+    linha = linha + sum(unique(z[i,])>0)
+    coluna = coluna + sum(unique(z[,i])>0)
+  }
+  
+  # for(matriz in divide_matrizes(z)){
+  #  submatrizes = submatrizes + sum(unique(c(matriz))>0)
+  # }
+  #print(paste0("linha: ",linha))
+  #print(paste0("coluna: ",coluna))
+  #print(paste0("submatrizes: ",submatrizes))
+  #print(sum(linha,coluna,submatrizes))
+  return(sum(linha,coluna))
+}
+preenche_zeros = function(z){
+  # preenche_zeros = function(z){
+  #  for(i in 1:9){
+  #    for(j in 1:9){
+  #      if(z[i,j]==0){
+  #        z[i,j] = sample(1:9,1)
+  #      }
+  #    }
+  #  }
+  #  return(z)
+  # }
+submatrizes = divide_matrizes(z)
+numeros_possiveis = 1:9
+for(k in 1:9){
+  submatriz = submatrizes[[k]]
+  for(i in 1:3){
+    for(j in 1:3){
+      if(submatriz[i,j]==0){
+        numeros_possiveis_sub = numeros_possiveis[!(numeros_possiveis %in% submatriz[c(submatriz)>0])]
+        if(length(numeros_possiveis_sub)>1){
+          submatriz[i,j] = sample(numeros_possiveis_sub,1)
+        }else{
+          submatriz[i,j] = numeros_possiveis_sub
+        }
+      }
+    }
+  }
+  submatrizes[[k]] = submatriz
+}
+return(junta_matrizes(submatrizes))
+}
+muda_estado = function(z, originais){
+  novo_numero = sample(1:9,1)
+  linha = sample(1:9,1)
+  coluna = sample(1:9,1)
+  while(originais[linha,coluna]){
+    linha = sample(1:9,1)
+    coluna = sample(1:9,1)
+  } 
+  z[linha,coluna] = novo_numero
+  return(z)
+}
+troca = function(z,originais){
+  sub_matrizes = divide_matrizes(z)
+  sub_originais = divide_matrizes(originais)
+  
+  while(TRUE){
+    index = sample(1:9,1)
+    if(sum(sub_originais[[index]])<9){
+      break
+    }
+  }
+  
+  novo_numero = sample(1:9,1)
+  linha_1 = sample(1:3,1)
+  coluna_1 = sample(1:3,1)
+  linha_2 = sample(1:3,1)
+  coluna_2 = sample(1:3,1)
+  while(sub_originais[[index]][linha_1,coluna_1] || sub_originais[[index]][linha_2,coluna_2]){
+    linha_1 = sample(1:3,1)
+    coluna_1 = sample(1:3,1)
+    linha_2 = sample(1:3,1)
+    coluna_2 = sample(1:3,1)
+  } 
+  temp = sub_matrizes[[index]][linha_1,coluna_1] 
+  sub_matrizes[[index]][linha_1,coluna_1] = sub_matrizes[[index]][linha_2,coluna_2]
+  sub_matrizes[[index]][linha_2,coluna_2] = temp
+  return(junta_matrizes(sub_matrizes))
+}
+
+
+boltzmann = function(estado_atual, estado_canditato, temperatura){
+  f_state = funcao_avaliacao(estado_atual)
+  f_candidate = funcao_avaliacao(estado_canditato)
+  dif = exp(-(f_state - f_candidate)/temperatura)
+  return(dif)
+}
+# aceitar = function(state,candidate,temperatura){
+#   P = min(boltzmann(state,candidate,temperatura),1)
+#   if(P > runif(1)){
+#     state=candidate
+#   }
+#   return(state)
+# }
+aceitar <- function(estado_atual, estado_candidato, temperatura){
+  f_atual <- funcao_avaliacao(estado_atual)
+  f_candidato <- funcao_avaliacao(estado_candidato)
+  dif <- f_candidato - f_atual
+
+  if(dif > 0){  # Se a função candidata for melhor
+    estado <- estado_candidato
+  } else {
+    P <- exp(dif/temperatura)  # Usar diferença positiva para maximização
+    if(runif(1) < P){
+      estado <- estado_candidato
+    } else {
+      estado <- estado_atual
+    }
+  }
+  return(estado)
+}
+ 
+resolve_sudoku = function(sudoku_matrix, temperatura, max_iter){
+   originais = retorna_originais(sudoku_matrix)
+   sudoku_matrix = preenche_zeros(sudoku_matrix)
+   estado = sudoku_matrix
+   metrica_melhor = funcao_avaliacao(estado)
+   iter_cont = 0
+   
+   
+   while(iter_cont < max_iter){
+     #candidato = muda_estado(estado,originais)
+     candidato = troca(estado, originais)
+     estado = aceitar(estado,candidato,temperatura)
+     metrica_estado = funcao_avaliacao(estado)
+     iter_cont = iter_cont + 1
+     
+     temperatura = temperatura*0.99999
+     if(metrica_estado >= metrica_melhor){
+       metrica_melhor = metrica_estado
+       melhor_estado = estado
+       if(metrica_melhor==81*2){
+         #print(paste0("Sudoku resolvido em ",iter_cont," passos!"))
+         break
+       }
+     }
+     
+     if(iter_cont%%1000 == 0){
+       #print(paste0("Melhor métrica: ",metrica_melhor," Metrica atual: ",metrica_estado," Iteração: ",iter_cont, " Temperatura ", temperatura))
+     }
+   }
+   
+   if(metrica_melhor!=81*2){
+     #print(paste0("Não foi possível resolver o sudoku em ", max_iter, "passos, melhor resultado para métrica obtido foi ",metrica_melhor))
+   }
+   
+   replot(melhor_estado,originais)
+}
+vetor <- c(5,3,0,0,7,0,0,0,0,
+6,0,0,1,9,5,0,0,0,
+0,9,8,0,0,0,0,6,0,
+8,0,0,0,6,0,0,0,3,
+4,0,0,8,0,3,0,0,1,
+7,0,0,0,2,0,0,0,6,
+0,6,0,0,0,0,2,8,0,
+0,0,0,4,1,9,0,0,5,
+0,0,0,0,8,0,0,7,9)
+sudoku_matrix <- matrix(vetor, nrow = 9, byrow = TRUE)
+resolve_sudoku(sudoku_matrix, 0.5, 100000)
+```
+
+Geralmente o nível de dificuldade do Sudoku pode ser medido pela quantidade de espaços em branco na matriz 9x9, onde uma quantidade maior de espaços vazios representam um conjunto maior de possibilidades de posições de números, implicando assim em uma maior dificuldade de resolução por parte do jogador. Para garantir uma solução única para um Sudoku, é mostrado em [@key-1] que é necessário pelo menos 17 números preenchidos originalmente no tabuleiro.
+
+## O que é Simulated Annealing?
+
+O Simulated Annealing é um algoritmo de otimização empregado na resolução de problemas complexos de otimização combinatória. Sua inspiração surge do processo físico do recozimento, em que um sólido é aquecido a uma determinada temperatura e, em seguida, gradualmente resfriado. Esse ciclo de aquecimento e resfriamento permite que o sólido, agora derretido, atinja um estado de baixa energia, minimizando sua energia interna [@key-2].
+
+Ao aplicar esse conceito ao domínio da otimização, o algoritmo de Simulated Annealing opera semelhante ao processo físico. Ele emprega uma estratégia baseada no algoritmo de Metropolis-Hastings para gerar uma sequência de soluções candidatas. Essa sequência é análoga aos diferentes estados físicos do sistema, enquanto uma função de custo avalia a energia associada a cada estado, permitindo a exploração de soluções que não necessariamente levam a uma melhoria imediata, mas são essenciais para escapar de mínimos locais e buscar a solução ótima global do problema.
+
+O método do Simulated Annealing destaca-se pela sua capacidade de explorar o espaço de soluções de forma mais abrangente, permitindo transições entre estados que podem até mesmo aumentar temporariamente a função de custo, mas têm a possibilidade de levar a uma solução ótima ou próxima disso, especialmente em problemas onde a busca por soluções ótimas é dificultada por muitos mínimos locais.
+
+O algoritmo de Metropolis-Hastings utilizado para gerar amostras no Simulated Annealing é uma técnica fundamental em MCMC (Monte Carlo e Cadeias de Markov), frequentemente empregada na geração de amostras de uma distribuição de probabilidade em cenários complicados. Este método se destaca ao lidar com distribuições difíceis de se realizar amostragem, utilizando uma estratégia de aceitação/rejeição baseada em simulação para produzir amostras da distribuição desejada. Ao utilizar o Metropolis-Hastings, o processo consiste em iterativamente gerar propostas de novos estados em uma cadeia de Markov com base em estados anteriores, permitindo que a cadeia de Markov explore o espaço das soluções. A cada passo, são feitas propostas de estados, que são aceitos ou rejeitados com base em probabilidade.
+
+
+## Como usar Simulated Annealing no Sudoku?
+
+Antes de começar a desenvolver o algoritmo de Simulated Annealing para o Sudoku, vamos pensar em quantas possibilidades de estados existem para a matriz 9x9 apresentada no início do relatório. A primeira submatriz possui 4 espaços em branco, isso significa dizer que eu tenho 4!\*3!\*2!\*1! = 288 maneiras diferentes de só preencher essa matriz. Agora vamos levar em conta também preencher a segunda matriz, pelo princípio fundamental da contagem, temos que para preencher as duas matrizes (4!3!2!1!)\*(5!4!3!2!1!) = 9953280 possibilidades. Agora levando em conta todas as submatrizes, temos 4, 5, 8, 6, 5, 6, 8, 5, 4 espaços em branco, seguindo a mesma ideia, vamos ter aproximadamente 5.42\*10^64 possíveis soluções. Dentre todas esses estados, somente um representa a solução real, assim torna-se proibitivo utilizar algoritmos puramente aleatórios para resolução.
+
+Para usar o Simulated Annealing no Sudoku primeiro temos que representar uma possível configuração do quebra cabeça como um estado em uma cadeia de Markov. Também temos que pensar em como esse estado pode ser alterado para gerar um novo estado candidato que será avaliado por uma função de custo. Definimos nosso espaço amostral de estados como todos os estados possíveis em que todas as 9 submatrizes 3x3 possuem números de 1 a 9 diferentes entre si. Observe que apesar das submatrizes possuirem números diferentes, as linhas e as colunas da matriz 9x9 principal podem possuir números repetidos. 
+
+Também precisamos definir uma função de custo que será máximizada (Apesar do algoritmo do Simulated Annealing ter sido desenvolvido originalmente para minimização, com algumas modificações podemos também resolver problemas de maximização). Definimos nossa função de custo como a soma dos elementos diferentes em cada linha e em cada coluna. Assim, para resolver um sudoku, precisamos que nossa função de custo possua valor 9\*9 referentes aos elementos diferentes das linhas, e mais 9\*9 referentes aos elementos da coluna, somando um máximo de 162. A Figura a seguir mostra um possível estado da nossa cadeia de markov, que possui função de custo 114.
+
+```{r echo=FALSE}
+
+vetor <- c(5,3,0,0,7,0,0,0,0,
+6,0,0,1,9,5,0,0,0,
+0,9,8,0,0,0,0,6,0,
+8,0,0,0,6,0,0,0,3,
+4,0,0,8,0,3,0,0,1,
+7,0,0,0,2,0,0,0,6,
+0,6,0,0,0,0,2,8,0,
+0,0,0,4,1,9,0,0,5,
+0,0,0,0,8,0,0,7,9)
+sudoku_matrix <- matrix(vetor, nrow = 9, byrow = TRUE)
+resolve_sudoku(sudoku_matrix, 0.5, 1)
+
+```
+
+Para o bom funcionamento do algoritmo do Simulated Annealing, é necessário que a cadeia de Markov associada possua a propriedade de irredutibilidade. Isso significa que, em um número finito de iterações, todos os estados possíveis no espaço amostral devem ter uma probabilidade maior que zero para serem sorteados. Em outras palavras, essa propriedade garante que todos os estados possíveis vão ser visitados em um número finito de iterações.
+
+Podemos pensar em diversas maneiras de transitar entre estados na nossa cadeia de markov. Vamos definir a nossa transição de estados da seguinte maneira:
+
+1. Sortei um número inteiro uniforme entre 1 e 9.
+2. Selecione a submatriz referente ao número sorteado do passo anterior.
+3. Com a submatriz selecionada, sorteie mais dois números inteiros uniformes entre 1 e 9.
+4. Se as posições da submatriz relacionadas aos números sorteados no passo anterior puderem ser trocadas, realize a troca. Caso contrário, retorne ao passo 3.
+
+Dessa maneira, é intuitivo pensar que a cadeia de markov formada por essa transição é irredutivel, pois todos os números que puderem ser trocados vão ser trocados com uma probabilidade uniforme.
+
+Definidos o espaço amostral de estados, função de custo e transição de estados, agora podemos utilizar o algoritmo do Simulated Annealing para resolver o Sudoku. Observe o pseudocódigo a seguir (O código original está disponível em https://github.com/lyncoln/sa_sudoku) 
+
+```{r eval = FALSE, number-lines}
+1. atual <- gera_estado_sudoku(tabuleiro)
+2. maior_funcao_custo <- funcao_custo(atual)
+3. contador  <- 0 
+4. maximo_iterações <- valor
+5. while(contador < maximo_iterações){
+6.   candidato <- transita_novo_estado(atual)
+7.   funcao_custo_atual <- funcao_custo(atual)
+8.   funcao_custo_candidato <- funcao_custo(candidato)
+9.   delta_funcao_custo = funcao_custo_candidato - funcao_custo_atual
+10.  if(delta_funcao_custo > 0){
+11.    atual <- candidato
+12.  } else { if(runif(1) < exp(delta_funcao_custo/temperatura)){
+13.      atual <- candidato
+14.    } 
+15.  }
+16.  if(funcao_custo(atual) == 162) return(atual)
+17.  temperatura = temperatura*0.99999
+18.  contador = contador + 1
+19. }
+```
+
+Na linha 1, é gerado um estado inicial para a cadeia de Markov, representando uma configuração inicial para o problema.
+
+Na linha 2, é avaliada a função de custo desse estado inicial, que determina o quão boa é essa configuração inicial.
+
+As linhas 3 e 4 definem as variáveis de controle do número de iterações para o processo de Simulated Annealing. 
+
+Na linha 5, um loop é iniciado para iterar até o valor estipulado pelo usuário.
+
+Na linha 6, um novo estado candidato é gerado a partir do estado atual, representando uma possível solução alternativa.
+
+Nas linhas 7 e 8, são calculadas as funções de custo tanto do estado atual quanto do estado candidato, avaliando a qualidade das soluções.
+
+Na linha 9, é calculada a diferença entre a função de custo do estado candidato e a função de custo do estado atual.
+
+Na linha 10 e 11, é aplicada uma condição: se a função de custo do estado candidato for maior que a do estado atual, o novo estado atual é definido como sendo o estado candidato.
+
+Nas linhas 12 e 13, se a função de custo do estado candidato não for maior que a do estado atual, mas a exponencial da diferença entre elas dividida pela temperatura for maior que um número aleatório uniforme entre 0 e 1, o estado atual também é definido como o estado candidato.
+
+Na linha 16 é verificado se a função de custo alcançou o valor de 162, que seria o máximo, o que significa que o tabuleiro do Sudoku foi resolvido.
+
+Na linha 17, a temperatura é reduzida, e o loop continua até que a temperatura seja maior que a temperatura final. Este processo permite ao algoritmo explorar soluções mesmo quando a função de custo é pior, ajudando a evitar mínimos locais durante a busca pela solução ótima.
+
+O algoritmo de aceitação/rejeição de Metropolis-Hastings mencionado está presente nas linhas 12 e 13, ele assegura a propriedade de estacionariedade da cadeia de Markov. Em outras palavras, após um número suficiente de iterações, a distribuição das probabilidades dos estados convergirá para os mesmos valores, independentemente do número de iterações ou do estado inicial. Essa propriedade de estacionariedade é importante para os algoritmos de Simulated Annealing.
+
+Por fim, temos um algoritmo funcional para resolver quebra-cabeças Sudoku. Vale ressaltar que resolver Sudoku utilizando Simulated Annealing pode não ser a melhor solução dentre os algoritmos de otimização, porém ele oferece uma abordagem interessante para explorar soluções em um espaço de busca utilizando conceitos de probabilidade como cadeias de Markov. Pode acontecer de que em um número finito de passos o algoritmo não consiga encontrar a solução final do Sudoku, e sim uma aproximação.
+
+## Avaliação do algoritmo
+
+### Referências
