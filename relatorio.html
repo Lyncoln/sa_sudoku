@@ -28,6 +28,230 @@ document.addEventListener('DOMContentLoaded', function(e) {
   }
 });
 </script>
+<script>$(document).ready(function(){
+    if (typeof $('[data-toggle="tooltip"]').tooltip === 'function') {
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+    if ($('[data-toggle="popover"]').popover === 'function') {
+        $('[data-toggle="popover"]').popover();
+    }
+});
+</script>
+<style type="text/css">
+.lightable-minimal {
+border-collapse: separate;
+border-spacing: 16px 1px;
+width: 100%;
+margin-bottom: 10px;
+}
+.lightable-minimal td {
+margin-left: 5px;
+margin-right: 5px;
+}
+.lightable-minimal th {
+margin-left: 5px;
+margin-right: 5px;
+}
+.lightable-minimal thead tr:last-child th {
+border-bottom: 2px solid #00000050;
+empty-cells: hide;
+}
+.lightable-minimal tbody tr:first-child td {
+padding-top: 0.5em;
+}
+.lightable-minimal.lightable-hover tbody tr:hover {
+background-color: #f5f5f5;
+}
+.lightable-minimal.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-classic {
+border-top: 0.16em solid #111111;
+border-bottom: 0.16em solid #111111;
+width: 100%;
+margin-bottom: 10px;
+margin: 10px 5px;
+}
+.lightable-classic tfoot tr td {
+border: 0;
+}
+.lightable-classic tfoot tr:first-child td {
+border-top: 0.14em solid #111111;
+}
+.lightable-classic caption {
+color: #222222;
+}
+.lightable-classic td {
+padding-left: 5px;
+padding-right: 5px;
+color: #222222;
+}
+.lightable-classic th {
+padding-left: 5px;
+padding-right: 5px;
+font-weight: normal;
+color: #222222;
+}
+.lightable-classic thead tr:last-child th {
+border-bottom: 0.10em solid #111111;
+}
+.lightable-classic.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-classic.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-classic-2 {
+border-top: 3px double #111111;
+border-bottom: 3px double #111111;
+width: 100%;
+margin-bottom: 10px;
+}
+.lightable-classic-2 tfoot tr td {
+border: 0;
+}
+.lightable-classic-2 tfoot tr:first-child td {
+border-top: 3px double #111111;
+}
+.lightable-classic-2 caption {
+color: #222222;
+}
+.lightable-classic-2 td {
+padding-left: 5px;
+padding-right: 5px;
+color: #222222;
+}
+.lightable-classic-2 th {
+padding-left: 5px;
+padding-right: 5px;
+font-weight: normal;
+color: #222222;
+}
+.lightable-classic-2 tbody tr:last-child td {
+border-bottom: 3px double #111111;
+}
+.lightable-classic-2 thead tr:last-child th {
+border-bottom: 1px solid #111111;
+}
+.lightable-classic-2.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-classic-2.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-material {
+min-width: 100%;
+white-space: nowrap;
+table-layout: fixed;
+font-family: Roboto, sans-serif;
+border: 1px solid #EEE;
+border-collapse: collapse;
+margin-bottom: 10px;
+}
+.lightable-material tfoot tr td {
+border: 0;
+}
+.lightable-material tfoot tr:first-child td {
+border-top: 1px solid #EEE;
+}
+.lightable-material th {
+height: 56px;
+padding-left: 16px;
+padding-right: 16px;
+}
+.lightable-material td {
+height: 52px;
+padding-left: 16px;
+padding-right: 16px;
+border-top: 1px solid #eeeeee;
+}
+.lightable-material.lightable-hover tbody tr:hover {
+background-color: #f5f5f5;
+}
+.lightable-material.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-material.lightable-striped tbody td {
+border: 0;
+}
+.lightable-material.lightable-striped thead tr:last-child th {
+border-bottom: 1px solid #ddd;
+}
+.lightable-material-dark {
+min-width: 100%;
+white-space: nowrap;
+table-layout: fixed;
+font-family: Roboto, sans-serif;
+border: 1px solid #FFFFFF12;
+border-collapse: collapse;
+margin-bottom: 10px;
+background-color: #363640;
+}
+.lightable-material-dark tfoot tr td {
+border: 0;
+}
+.lightable-material-dark tfoot tr:first-child td {
+border-top: 1px solid #FFFFFF12;
+}
+.lightable-material-dark th {
+height: 56px;
+padding-left: 16px;
+padding-right: 16px;
+color: #FFFFFF60;
+}
+.lightable-material-dark td {
+height: 52px;
+padding-left: 16px;
+padding-right: 16px;
+color: #FFFFFF;
+border-top: 1px solid #FFFFFF12;
+}
+.lightable-material-dark.lightable-hover tbody tr:hover {
+background-color: #FFFFFF12;
+}
+.lightable-material-dark.lightable-striped tbody tr:nth-child(even) {
+background-color: #FFFFFF12;
+}
+.lightable-material-dark.lightable-striped tbody td {
+border: 0;
+}
+.lightable-material-dark.lightable-striped thead tr:last-child th {
+border-bottom: 1px solid #FFFFFF12;
+}
+.lightable-paper {
+width: 100%;
+margin-bottom: 10px;
+color: #444;
+}
+.lightable-paper tfoot tr td {
+border: 0;
+}
+.lightable-paper tfoot tr:first-child td {
+border-top: 1px solid #00000020;
+}
+.lightable-paper thead tr:last-child th {
+color: #666;
+vertical-align: bottom;
+border-bottom: 1px solid #00000020;
+line-height: 1.15em;
+padding: 10px 5px;
+}
+.lightable-paper td {
+vertical-align: middle;
+border-bottom: 1px solid #00000010;
+line-height: 1.15em;
+padding: 7px 5px;
+}
+.lightable-paper.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-paper.lightable-striped tbody tr:nth-child(even) {
+background-color: #00000008;
+}
+.lightable-paper.lightable-striped tbody td {
+border: 0;
+}
+</style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -220,13 +444,14 @@ diferentes estados físicos do sistema, enquanto uma função de custo
 avalia a energia associada a cada estado, permitindo a exploração de
 soluções que não necessariamente levam a uma melhoria imediata, mas são
 essenciais para escapar de mínimos locais e buscar a solução ótima
-global do problema.</p>
+global do problema <span class="citation">(KIRKPATRICK; GELATT; VECCHI,
+1983)</span>.</p>
 <p>O método do Simulated Annealing destaca-se pela sua capacidade de
 explorar o espaço de soluções de forma mais abrangente, permitindo
-transições entre estados que podem até mesmo aumentar temporariamente a
+transições entre estados que podem até mesmo piorar temporariamente a
 função de custo, mas têm a possibilidade de levar a uma solução ótima ou
 próxima disso, especialmente em problemas onde a busca por soluções
-ótimas é dificultada por muitos mínimos locais.</p>
+ótimas é dificultada por muitos mínimos ou máximos locais.</p>
 <p>O algoritmo de Metropolis-Hastings utilizado para gerar amostras no
 Simulated Annealing é uma técnica fundamental em MCMC (Monte Carlo e
 Cadeias de Markov), frequentemente empregada na geração de amostras de
@@ -239,6 +464,25 @@ propostas de novos estados em uma cadeia de Markov com base em estados
 anteriores, permitindo que a cadeia de Markov explore o espaço das
 soluções. A cada passo, são feitas propostas de estados, que são aceitos
 ou rejeitados com base em probabilidade.</p>
+<p>No Simulated Annealing, essas transições são regidas pela
+distribuição estacionária dada pela distribuição de Boltzmann, onde a
+probabilidade de aceitar ou rejeitar uma mudança de estado é calculada
+usando o conceito de resfriamento com a temperatura. Essa integração
+entre Metropolis-Hastings e a distribuição de Boltzmann orienta as
+transições entre estados, permitindo a exploração probabilística do
+espaço de soluções em busca de melhores resultados para função de custo.
+Denote s como estado atual, s’ como um novo estado candidato, f como a
+função de custo, P como a probabilidade de transição entre o estado s
+para o s’ e T a temperatura. Utilizando o algoritmo de Simulated
+Annealing, temos que gerar cadeias com Metropolis-Hasting utilizando a
+distribuição de Boltzmann, assim temos para problemas de maximização a
+probabilidade de transição dada por:</p>
+<p><span class="math display">\[
+P_{s, s&#39;} = \begin{cases}
+1 &amp; \text{se } f(s&#39;) &gt; f(s) \\
+e^{\frac{f(s&#39;) - f(s)}{T}} &amp; \text{caso contrário}
+\end{cases}
+\]</span></p>
 </div>
 <div id="como-usar-simulated-annealing-no-sudoku" class="section level2">
 <h2>Como usar Simulated Annealing no Sudoku?</h2>
@@ -246,15 +490,15 @@ ou rejeitados com base em probabilidade.</p>
 para o Sudoku, vamos pensar em quantas possibilidades de estados existem
 para a matriz 9x9 apresentada no início do relatório. A primeira
 submatriz possui 4 espaços em branco, isso significa dizer que eu tenho
-4!*3!*2!*1! = 288 maneiras diferentes de só preencher essa matriz. Agora
-vamos levar em conta também preencher a segunda matriz, pelo princípio
-fundamental da contagem, temos que para preencher as duas matrizes
-(4!3!2!1!)*(5!4!3!2!1!) = 9953280 possibilidades. Agora levando em conta
-todas as submatrizes, temos 4, 5, 8, 6, 5, 6, 8, 5, 4 espaços em branco,
-seguindo a mesma ideia, vamos ter aproximadamente 5.42*10^64 possíveis
-soluções. Dentre todas esses estados, somente um representa a solução
-real, assim torna-se proibitivo utilizar algoritmos puramente aleatórios
-para resolução.</p>
+4! = 24 maneiras diferentes de só preencher essa matriz. Agora vamos
+levar em conta também preencher a segunda matriz, pelo princípio
+fundamental da contagem, temos que para preencher as duas matrizes 4!*5!
+= 2880 possibilidades. Agora levando em conta todas as submatrizes,
+temos 4, 5, 8, 6, 5, 6, 8, 5, 4 espaços em branco, seguindo a mesma
+ideia, vamos ter aproximadamente 8.388*10^23 possíveis soluções. Dentre
+todas esses estados, somente um representa a solução real, assim
+torna-se proibitivo utilizar algoritmos puramente aleatórios para
+resolução.</p>
 <p>Para usar o Simulated Annealing no Sudoku primeiro temos que
 representar uma possível configuração do quebra cabeça como um estado em
 uma cadeia de Markov. Também temos que pensar em como esse estado pode
@@ -277,13 +521,15 @@ função de custo 114.</p>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
 <p>Para o bom funcionamento do algoritmo do Simulated Annealing, é
 necessário que a cadeia de Markov associada possua a propriedade de
-irredutibilidade. Isso significa que, em um número finito de iterações,
-todos os estados possíveis no espaço amostral devem ter uma
-probabilidade maior que zero para serem sorteados. Em outras palavras,
-essa propriedade garante que todos os estados possíveis vão ser
-visitados em um número finito de iterações.</p>
+irredutibilidade. Uma cadeia de Markov é considerada irreduzível se for
+possível, a partir de qualquer estado, chegar a qualquer outro estado
+dentro do sistema com uma probabilidade maior que zero em um número
+finito de etapas. Em outras palavras, não há “blocos isolados” dentro da
+cadeia onde você não possa alcançar certos estados a partir de outros.
+Essa propriedade garante que todos os estados possíveis do espaço
+amostral vão ser visitados em um número finito de iterações.</p>
 <p>Podemos pensar em diversas maneiras de transitar entre estados na
-nossa cadeia de markov. Vamos definir a nossa transição de estados da
+nossa cadeia de Markov. Vamos definir a nossa transição de estados da
 seguinte maneira:</p>
 <ol style="list-style-type: decimal">
 <li>Sortei um número inteiro uniforme entre 1 e 9.</li>
@@ -295,15 +541,13 @@ uniformes entre 1 e 9.</li>
 passo anterior puderem ser trocadas, realize a troca. Caso contrário,
 retorne ao passo 3.</li>
 </ol>
-<p>Dessa maneira, é intuitivo pensar que a cadeia de markov formada por
-essa transição é irredutivel, pois todos os números que puderem ser
-trocados vão ser trocados com uma probabilidade uniforme.</p>
-<p>Definidos o espaço amostral de estados, função de custo e transição
-de estados, agora podemos utilizar o algoritmo do Simulated Annealing
-para resolver o Sudoku. Observe o pseudocódigo a seguir (O código
-original está disponível em <a href="https://github.com/lyncoln/sa_sudoku" class="uri">https://github.com/lyncoln/sa_sudoku</a>)</p>
+<p>Dessa maneira, é intuitivo pensar que a cadeia de Markov formada por
+essa transição é irredutível. Definidos o espaço amostral de estados,
+função de custo e transição de estados, agora podemos utilizar o
+algoritmo do Simulated Annealing para resolver o Sudoku. Observe o
+pseudocódigo a seguir.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fl">1.</span> atual <span class="ot">&lt;-</span> <span class="fu">gera_estado_sudoku</span>(tabuleiro)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fl">2.</span> maior_funcao_custo <span class="ot">&lt;-</span> <span class="fu">funcao_custo</span>(atual)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fl">2.</span> </span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fl">3.</span> contador  <span class="ot">&lt;-</span> <span class="dv">0</span> </span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fl">4.</span> maximo_iterações <span class="ot">&lt;-</span> valor</span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fl">5.</span> <span class="cf">while</span>(contador <span class="sc">&lt;</span> maximo_iterações){</span>
@@ -323,8 +567,6 @@ original está disponível em <a href="https://github.com/lyncoln/sa_sudoku" cla
 <span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="fl">19.</span> }</span></code></pre></div>
 <p>Na linha 1, é gerado um estado inicial para a cadeia de Markov,
 representando uma configuração inicial para o problema.</p>
-<p>Na linha 2, é avaliada a função de custo desse estado inicial, que
-determina o quão boa é essa configuração inicial.</p>
 <p>As linhas 3 e 4 definem as variáveis de controle do número de
 iterações para o processo de Simulated Annealing.</p>
 <p>Na linha 5, um loop é iniciado para iterar até o valor estipulado
@@ -347,17 +589,18 @@ candidato.</p>
 <p>Na linha 16 é verificado se a função de custo alcançou o valor de
 162, que seria o máximo, o que significa que o tabuleiro do Sudoku foi
 resolvido.</p>
-<p>Na linha 17, a temperatura é reduzida, e o loop continua até que a
-temperatura seja maior que a temperatura final. Este processo permite ao
-algoritmo explorar soluções mesmo quando a função de custo é pior,
-ajudando a evitar mínimos locais durante a busca pela solução ótima.</p>
-<p>O algoritmo de aceitação/rejeição de Metropolis-Hastings mencionado
-está presente nas linhas 12 e 13, ele assegura a propriedade de
-estacionariedade da cadeia de Markov. Em outras palavras, após um número
-suficiente de iterações, a distribuição das probabilidades dos estados
-convergirá para os mesmos valores, independentemente do número de
-iterações ou do estado inicial. Essa propriedade de estacionariedade é
-importante para os algoritmos de Simulated Annealing.</p>
+<p>Na linha 17, a temperatura é reduzida, e o loop continua. O processo
+de resfriamento permite ao algoritmo explorar soluções mesmo quando a
+função de custo é pior, ajudando a evitar mínimos locais durante a busca
+pela solução ótima.</p>
+<p>O algoritmo de aceitação/rejeição de Metropolis-Hastings utilizando a
+distribuição de Boltzmann mencionado está presente nas linhas 12 e 13,
+ele assegura a propriedade de estacionariedade da cadeia de Markov. Em
+outras palavras, após um número suficiente de iterações, a distribuição
+das probabilidades dos estados convergirá para os mesmos valores,
+independentemente do número de iterações ou do estado inicial. Essa
+propriedade de estacionariedade é importante para os algoritmos de
+Simulated Annealing.</p>
 <p>Por fim, temos um algoritmo funcional para resolver quebra-cabeças
 Sudoku. Vale ressaltar que resolver Sudoku utilizando Simulated
 Annealing pode não ser a melhor solução dentre os algoritmos de
@@ -369,9 +612,328 @@ sim uma aproximação.</p>
 </div>
 <div id="avaliação-do-algoritmo" class="section level2">
 <h2>Avaliação do algoritmo</h2>
+<p>Agora implementamos o pseudocódigo com a linguagem de programação R
+<span class="citation">(R CORE TEAM, 2023)</span>. Vamos verificar se o
+Simulated Annealing consegue encontrar a solução do Sudoku apresentada
+no início desse relatório. Escolhemos um número máximo de 100000
+iterações e uma temperatura inicial de 0.5. Para implementação real,
+temos que adicionar alguns detalhes, como por exemplo: garantir que o
+algoritmo não mude os números inicias dados pelo Sudoku, que no caso
+chamamos de originais; gerar um estado inicial da nossa cadeia de
+markov; salvar o estado que resultou em uma melhor função de custo. O
+Código a seguir apresenta a função principal para a implementação do
+Simulated Annealing. O código completo, com todas as funções auxiliares
+utilizadas, está disponível em <a href="https://github.com/lyncoln/sa_sudoku" class="uri">https://github.com/lyncoln/sa_sudoku</a>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>resolve_sudoku <span class="ot">&lt;-</span> <span class="cf">function</span>(sudoku_matrix, temperatura, max_iter){</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>   originais <span class="ot">&lt;-</span> <span class="fu">retorna_originais</span>(sudoku_matrix) <span class="co"># Separa os números inicias dado pelo Sudoku</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>   sudoku_matrix <span class="ot">&lt;-</span> <span class="fu">preenche_zeros</span>(sudoku_matrix) <span class="co"># Gera o estado inicial da cadeia </span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>   atual <span class="ot">&lt;-</span> sudoku_matrix</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>   metrica_melhor <span class="ot">&lt;-</span> <span class="fu">funcao_avaliacao</span>(atual) <span class="co"># Calcula a função de custo para o estado inicial</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>   iter_cont <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>   <span class="cf">while</span>(iter_cont <span class="sc">&lt;</span> max_iter){</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>     candidato <span class="ot">&lt;-</span> <span class="fu">troca</span>(atual, originais) <span class="co"># Realiza a transição do estado atual para o candidato</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>     atual <span class="ot">&lt;-</span> <span class="fu">aceitar</span>(atual,candidato,temperatura) <span class="co"># Aceita ou rejeita a transição</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>     metrica_estado <span class="ot">&lt;-</span> <span class="fu">funcao_avaliacao</span>(atual) <span class="co"># Calcula a função de custo do estado atual</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>     iter_cont <span class="ot">&lt;-</span> iter_cont <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>     <span class="cf">if</span>(metrica_estado <span class="sc">&gt;=</span> metrica_melhor){ </span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>       <span class="co"># Se a função de custo do estado atual for melhor do que a melhor observada, salva o melhor estado</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>       metrica_melhor <span class="ot">&lt;-</span> metrica_estado</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>       melhor_estado <span class="ot">&lt;-</span> atual</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>       <span class="cf">if</span>(metrica_melhor<span class="sc">==</span><span class="dv">81</span><span class="sc">*</span><span class="dv">2</span>){</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>         <span class="co"># Se a função de custo for igual a 162, o sudoku foi resolvido</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>         <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Sudoku resolvido em &quot;</span>,iter_cont,<span class="st">&quot; passos!&quot;</span>))</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>         <span class="fu">replot</span>(melhor_estado,originais) <span class="co"># Plota a matriz 9x9 do sudoku</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>         <span class="fu">return</span>(iter_cont)</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>       }</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>     }</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>     <span class="cf">if</span>(iter_cont<span class="sc">%%</span><span class="dv">1000</span> <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>       <span class="co"># Printa a função de custo do estado atual, a do melhor estado e temperatura a cada 1000 iterações</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>       <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Melhor métrica: &quot;</span>,metrica_melhor,<span class="st">&quot; Metrica atual: &quot;</span>,metrica_estado,<span class="st">&quot; Iteração: &quot;</span>,iter_cont, <span class="st">&quot; Temperatura &quot;</span>, temperatura))</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>       </span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>     }</span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>     temperatura <span class="ot">&lt;-</span> temperatura<span class="sc">*</span><span class="fl">0.99999</span> <span class="co"># Reduz a temperatura</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>   }</span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a>   <span class="cf">if</span>(metrica_melhor<span class="sc">!=</span><span class="dv">81</span><span class="sc">*</span><span class="dv">2</span>){</span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>     <span class="co"># Se não encontrar a solução, mostra o melhor resultado obtido</span></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>     <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Não foi possível resolver o sudoku em &quot;</span>, max_iter, <span class="st">&quot;passos, melhor resultado para métrica obtido foi &quot;</span>,metrica_melhor))</span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>     <span class="fu">replot</span>(melhor_estado,originais) <span class="co"># Plota a matriz 9x9 do sudoku</span></span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a>     <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a>   }</span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a>   </span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a>}</span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a>vetor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">7</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,</span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a><span class="dv">6</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">9</span>,<span class="dv">5</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,</span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="dv">0</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">6</span>,<span class="dv">0</span>,</span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a><span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">6</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">3</span>,</span>
+<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a><span class="dv">4</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,</span>
+<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="dv">7</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">6</span>,</span>
+<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a><span class="dv">0</span>,<span class="dv">6</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">8</span>,<span class="dv">0</span>,</span>
+<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">9</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">5</span>,</span>
+<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a><span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">7</span>,<span class="dv">9</span>)</span>
+<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a></span>
+<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a>sudoku_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(vetor, <span class="at">nrow =</span> <span class="dv">9</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a><span class="fu">resolve_sudoku</span>(sudoku_matrix, <span class="fl">0.5</span>, <span class="dv">100000</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Melhor métrica: 158 Metrica atual: 156 Iteração: 1000 Temperatura 0.495029842421621&quot;
+## [1] &quot;Melhor métrica: 160 Metrica atual: 160 Iteração: 2000 Temperatura 0.49010418868505&quot;
+## [1] &quot;Melhor métrica: 160 Metrica atual: 154 Iteração: 3000 Temperatura 0.485227546265887&quot;
+## [1] &quot;Melhor métrica: 160 Metrica atual: 154 Iteração: 4000 Temperatura 0.480399427490947&quot;
+## [1] &quot;Melhor métrica: 160 Metrica atual: 156 Iteração: 5000 Temperatura 0.475619349539502&quot;
+## [1] &quot;Melhor métrica: 160 Metrica atual: 156 Iteração: 6000 Temperatura 0.470886834394994&quot;
+## [1] &quot;Melhor métrica: 160 Metrica atual: 150 Iteração: 7000 Temperatura 0.46620140879723&quot;
+## [1] &quot;Melhor métrica: 160 Metrica atual: 148 Iteração: 8000 Temperatura 0.461562604195062&quot;
+## [1] &quot;Melhor métrica: 160 Metrica atual: 153 Iteração: 9000 Temperatura 0.456969956699524&quot;
+## [1] &quot;Melhor métrica: 160 Metrica atual: 154 Iteração: 10000 Temperatura 0.452423007037447&quot;
+## [1] &quot;Melhor métrica: 160 Metrica atual: 156 Iteração: 11000 Temperatura 0.447921300505529&quot;
+## [1] &quot;Melhor métrica: 160 Metrica atual: 158 Iteração: 12000 Temperatura 0.443464386924863&quot;
+## [1] &quot;Melhor métrica: 160 Metrica atual: 154 Iteração: 13000 Temperatura 0.43905182059592&quot;
+## [1] &quot;Melhor métrica: 160 Metrica atual: 154 Iteração: 14000 Temperatura 0.434683160253976&quot;
+## [1] &quot;Melhor métrica: 160 Metrica atual: 155 Iteração: 15000 Temperatura 0.430357969024989&quot;
+## [1] &quot;Melhor métrica: 160 Metrica atual: 157 Iteração: 16000 Temperatura 0.426075814381906&quot;
+## [1] &quot;Sudoku resolvido em 16609 passos!&quot;</code></pre>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>## [1] 16609</code></pre>
+<p>Para avaliar o quão bem o algoritmo desenvolvido resolve Sudoku,
+vamos utilizar uma função auxiliar desenvolvida em R do pacote com nome
+“sudoku” do repositório oficial da linguagem. Esse pacote conta com uma
+função chamada “generateSudoku(n)” que gera tabuleiros de Sudoku de
+forma aleatória com n espaços em branco. Vamos gerar 50 tabuleiros
+diferentes, com n = 10,15,20,25,30,35,40,45,50,55 e 60 espaços em branco
+e aplicar o algoritmo para resolução. Os resultados podem ser visto a
+seguir:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>resultados <span class="ot">=</span> <span class="fu">list</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="cf">for</span>(n <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="dv">45</span>, <span class="dv">50</span>, <span class="dv">55</span>, <span class="dv">60</span>)){</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>){</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    sudoku_matrix <span class="ot">=</span> sudoku<span class="sc">::</span><span class="fu">generateSudoku</span>(n)</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    resolucao <span class="ot">=</span> <span class="fu">resolve_sudoku</span>(sudoku_matrix, <span class="fl">0.5</span>, <span class="dv">100000</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>    resultados[[<span class="fu">as.character</span>(n)]] <span class="ot">=</span> <span class="fu">c</span>(resultados[[<span class="fu">as.character</span>(n)]], resolucao)</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  }</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>df_list <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co"># Gerando a tabela de métricas</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="cf">for</span> (x <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(resultados)) {</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  N <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="fu">names</span>(resultados[x]))</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  solucoes <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultados[[x]] <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  media <span class="ot">&lt;-</span> <span class="fu">mean</span>(resultados[[x]][resultados[[x]] <span class="sc">&gt;</span> <span class="dv">0</span>])</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>  desvio <span class="ot">&lt;-</span> <span class="fu">sd</span>(resultados[[x]][resultados[[x]] <span class="sc">&gt;</span> <span class="dv">0</span>])</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>  df_aux <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">N =</span> N, <span class="at">Solucoes =</span> solucoes, <span class="st">`</span><span class="at">Media_Iteracoes</span><span class="st">`</span> <span class="ot">=</span> media, <span class="at">Desvio =</span> desvio)</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>  df_list <span class="ot">&lt;-</span> <span class="fu">c</span>(df_list, <span class="fu">list</span>(df_aux))</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>}</span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>df_tabela <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, df_list)</span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#Estilizando a tabela</span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a>styled_table <span class="ot">&lt;-</span> df_tabela <span class="sc">|&gt;</span></span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kbl</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_paper</span>()</span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a>styled_table</span></code></pre></div>
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+N
+</th>
+<th style="text-align:right;">
+Solucoes
+</th>
+<th style="text-align:right;">
+Media_Iteracoes
+</th>
+<th style="text-align:right;">
+Desvio
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+44.50
+</td>
+<td style="text-align:right;">
+34.14809
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+119.62
+</td>
+<td style="text-align:right;">
+98.23605
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+94.58
+</td>
+<td style="text-align:right;">
+63.82536
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+213.90
+</td>
+<td style="text-align:right;">
+177.56565
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+321.38
+</td>
+<td style="text-align:right;">
+243.91224
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+742.18
+</td>
+<td style="text-align:right;">
+507.00182
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+1774.78
+</td>
+<td style="text-align:right;">
+1724.45329
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+5037.28
+</td>
+<td style="text-align:right;">
+5569.46390
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+12687.90
+</td>
+<td style="text-align:right;">
+10795.98206
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+21539.78
+</td>
+<td style="text-align:right;">
+17225.95508
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+20630.64
+</td>
+<td style="text-align:right;">
+11442.17284
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">ggplot</span>(df_tabela, <span class="fu">aes</span>(<span class="at">x =</span> N, <span class="at">y =</span> <span class="st">`</span><span class="at">Media_Iteracoes</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">60</span>,<span class="dv">5</span>), <span class="at">labels =</span> <span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">60</span>,<span class="dv">5</span>))<span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Espa\u00E7os em branco&quot;</span>, <span class="at">y =</span> <span class="st">&quot;M\u00E9dia de itera\u00E7\u00F5es ate solu\u00E7\u00E3o&quot;</span>)<span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div id="conclusões" class="section level3">
+<h3>Conclusões</h3>
+<p>Observamos que ao aumentar a quantidade de espaços em branco, a média
+de iterações necessárias para resolver o quebra-cabeça tende a aumentar
+consideravelmente. No entanto, essa tendência não se verifica para todos
+os valores de N. Por exemplo, ao passarmos de 55 para 60 espaços em
+branco, notamos uma queda na média de iterações necessárias. Além disso,
+notamos que o algoritmo apresentou dificuldade em apenas 2
+quebra-cabeças quando a quantidade de espaços em branco foi de 50. Esse
+dado ressalta a eficiencia geral do Simulated Annealing na resolução de
+quebra-cabeças Sudoku. Para melhorar o desempenho do algoritmo, uma
+alternativa seria explorar técnicas de resfriamento mais sofisticadas
+dentro do Simulated Annealing ou modificar a estratégia de transição de
+estados.</p>
+</div>
 <div id="referências" class="section level3 unnumbered">
 <h3 class="unnumbered">Referências</h3>
 <div id="refs" class="references csl-bib-body">
+<div id="ref-key-3" class="csl-entry">
+KIRKPATRICK, S.; GELATT, C. D.; VECCHI, M. P. Optimization by Simulated
+Annealing. <strong>Science</strong>, v. 220, n. 4598, p. 671–680, 1983.
+Disponível em: &lt;<a href="https://science.sciencemag.org/content/220/4598/671">https://science.sciencemag.org/content/220/4598/671</a>&gt;.
+</div>
 <div id="ref-key-2" class="csl-entry">
 LAARHOVEN P. J. M., van; L, A. E. H. <strong>Simulated Annealing: Theory
 and Applications</strong>. [s.l.] Springer, 1987.
@@ -380,6 +942,11 @@ and Applications</strong>. [s.l.] Springer, 1987.
 MCGUIRE, G.; TUGEMANN, B.; CIVARIO, G. There is no 16-Clue Sudoku:
 Solving the Sudoku Minimum Number of Clues Problem.
 <strong>CoRR</strong>, v. abs/1201.0749, 2012. Disponível em: &lt;<a href="http://arxiv.org/abs/1201.0749">http://arxiv.org/abs/1201.0749</a>&gt;.
+</div>
+<div id="ref-key-4" class="csl-entry">
+R CORE TEAM. <strong><a href="https://www.R-project.org/">R: A Language
+and Environment for Statistical Computing</a></strong>. Vienna, Austria:
+R Foundation for Statistical Computing, 2023.
 </div>
 </div>
 </div>
