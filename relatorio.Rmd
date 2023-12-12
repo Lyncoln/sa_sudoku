@@ -3,9 +3,9 @@ title: "Utilizando Simulated Annealing para Resolver Sudoku"
 author: "Lyncoln Sousa de Oliveira"
 date: ""
 output:
-  prettydoc::html_pretty:
-    theme: architect
-    highlight: github
+  rmdformats::readthedown:
+    highlight: kate
+    css: style.css
 bibliography: referencias.bib
 csl: referencias.csl
 ---
@@ -30,7 +30,8 @@ O Sudoku é um jogo baseado na colocação lógica de números. Pode ser encontr
 2. Cada coluna da matriz 9x9 deve possuir somente números diferentes de 1 a 9.
 3. Cada submatriz 3x3 deve possuir somente números diferentes de 1 a 9.
 
-Um exemplo clássico de uma configuração do quebra cabeça sudoku é dado pela Figura a seguir, onde os números em verde não podem ser alterados para resolução do quebra-cabeça.
+Um exemplo clássico de uma configuração do quebra-cabeça Sudoku é dado pela Figura a seguir, onde os números em verde não podem ser alterados pelo usuário para encontrar a resolução do tabuleiro.
+
 ```{r, echo = FALSE}
 replot <- function(z, originais) {
   par(mar = c(0, 0, 0, 0), bg = "white")
@@ -317,7 +318,7 @@ Ao aplicar esse conceito ao domínio da otimização, o algoritmo de Simulated A
 
 O método do Simulated Annealing destaca-se pela sua capacidade de explorar o espaço de soluções de forma mais abrangente, permitindo transições entre estados que podem até mesmo piorar temporariamente a função de custo, mas têm a possibilidade de levar a uma solução ótima ou próxima disso, especialmente em problemas onde a busca por soluções ótimas é dificultada por muitos mínimos ou máximos locais.
 
-O algoritmo de Metropolis-Hastings utilizado para gerar amostras no Simulated Annealing é uma técnica fundamental em MCMC (Monte Carlo e Cadeias de Markov), frequentemente empregada na geração de amostras de uma distribuição de probabilidade em cenários complicados. Este método se destaca ao lidar com distribuições difíceis de se realizar amostragem, utilizando uma estratégia de aceitação/rejeição baseada em simulação para produzir amostras da distribuição desejada. Ao utilizar o Metropolis-Hastings, o processo consiste em iterativamente gerar propostas de novos estados em uma cadeia de Markov com base em estados anteriores, permitindo que a cadeia de Markov explore o espaço das soluções. A cada passo, são feitas propostas de estados, que são aceitos ou rejeitados com base em probabilidade.
+O algoritmo de Metropolis-Hastings utilizado para gerar amostras no Simulated Annealing é uma técnica fundamental em MCMC (Monte Carlo e Cadeias de Markov), frequentemente empregada na geração de amostras de uma distribuição de probabilidade em cenários complicados. Este método se destaca ao lidar com distribuições difíceis de se realizar amostragem, utilizando uma estratégia de aceitação/rejeição baseada em simulação para produzir amostras da distribuição desejada. Ao utilizar o Metropolis-Hastings, o processo consiste em iterativamente gerar propostas de novos estados em uma cadeia de Markov com base em estados anteriores, permitindo que a cadeia de Markov explore o espaço das soluções. A cada passo, é feita uma proposta de transição do estado atual para um estado candidato, que é aceita ou rejeitada com base em probabilidade.
 
 No Simulated Annealing, essas transições são regidas pela distribuição estacionária dada pela distribuição de Boltzmann, onde a probabilidade de aceitar ou rejeitar uma mudança de estado é calculada usando o conceito de resfriamento com a temperatura. Essa integração entre Metropolis-Hastings e a distribuição de Boltzmann orienta as transições entre estados, permitindo a exploração probabilística do espaço de soluções em busca de  melhores resultados para função de custo. Denote s como estado atual, s' como um novo estado candidato, f como a função de custo, P como a probabilidade de transição entre o estado s para o s' e T a temperatura. Utilizando o algoritmo de Simulated Annealing, temos que gerar cadeias com Metropolis-Hasting utilizando a distribuição de Boltzmann, assim temos para problemas de maximização a probabilidade de transição dada por:
 
@@ -332,11 +333,11 @@ e^{\frac{f(s') - f(s)}{T}} & \text{caso contrário}
 
 ## Como usar Simulated Annealing no Sudoku?
 
-Antes de começar a desenvolver o algoritmo de Simulated Annealing para o Sudoku, vamos pensar em quantas possibilidades de estados existem para a matriz 9x9 apresentada no início do relatório. A primeira submatriz possui 4 espaços em branco, isso significa dizer que eu tenho 4! = 24 maneiras diferentes de só preencher essa matriz. Agora vamos levar em conta também preencher a segunda matriz, pelo princípio fundamental da contagem, temos que para preencher as duas matrizes 4!\*5! = 2880 possibilidades. Agora levando em conta todas as submatrizes, temos 4, 5, 8, 6, 5, 6, 8, 5, 4 espaços em branco, seguindo a mesma ideia, vamos ter aproximadamente 8.388\*10^23 possíveis soluções. Dentre todas esses estados, somente um representa a solução real, assim torna-se proibitivo utilizar algoritmos puramente aleatórios para resolução.
+Antes de começar a desenvolver o algoritmo de Simulated Annealing para o Sudoku, vamos pensar em quantas possibilidades de estados existem para a matriz 9x9 apresentada no início do relatório. A primeira submatriz possui 4 espaços em branco, isso significa dizer que temos 4! = 24 maneiras diferentes de só preencher essa matriz. Agora vamos levar em conta também preencher a segunda matriz, pelo princípio fundamental da contagem, temos que para preencher as duas matrizes 4!5! = 2880 possibilidades. Agora levando em conta todas as submatrizes, temos 4, 5, 8, 6, 5, 6, 8, 5, 4 espaços em branco, seguindo a mesma ideia, vamos ter aproximadamente 8.388\*10^23 possíveis soluções. Dentre todas esses estados, somente um representa a solução real, assim torna-se proibitivo utilizar algoritmos puramente aleatórios para resolução.
 
-Para usar o Simulated Annealing no Sudoku primeiro temos que representar uma possível configuração do quebra cabeça como um estado em uma cadeia de Markov. Também temos que pensar em como esse estado pode ser alterado para gerar um novo estado candidato que será avaliado por uma função de custo. Definimos nosso espaço amostral de estados como todos os estados possíveis em que todas as 9 submatrizes 3x3 possuem números de 1 a 9 diferentes entre si. Observe que apesar das submatrizes possuirem números diferentes, as linhas e as colunas da matriz 9x9 principal podem possuir números repetidos. 
+Para usar o Simulated Annealing no Sudoku primeiro temos que representar uma possível configuração do quebra-cabeça como um estado em uma cadeia de Markov. Também temos que pensar em como esse estado pode ser alterado para gerar um novo estado candidato que será avaliado por uma função de custo. Definimos nosso espaço amostral de estados como todos os estados possíveis em que todas as 9 submatrizes 3x3 possuem números de 1 a 9 diferentes entre si. Observe que apesar das submatrizes possuirem números diferentes, as linhas e as colunas da matriz 9x9 principal podem possuir números repetidos. 
 
-Também precisamos definir uma função de custo que será máximizada (Apesar do algoritmo do Simulated Annealing ter sido desenvolvido originalmente para minimização, com algumas modificações podemos também resolver problemas de maximização). Definimos nossa função de custo como a soma dos elementos diferentes em cada linha e em cada coluna. Assim, para resolver um sudoku, precisamos que nossa função de custo possua valor 9\*9 referentes aos elementos diferentes das linhas, e mais 9\*9 referentes aos elementos da coluna, somando um máximo de 162. A Figura a seguir mostra um possível estado da nossa cadeia de markov, que possui função de custo 114.
+Também precisamos definir uma função de custo que será maximizada (Apesar do algoritmo do Simulated Annealing ter sido desenvolvido originalmente para minimização, com algumas modificações podemos também resolver problemas de maximização). Definimos nossa função de custo como a soma dos elementos diferentes em cada linha e em cada coluna. Assim, para resolver um Sudoku, precisamos que nossa função de custo possua valor 9\*9 referentes aos elementos diferentes das linhas, e mais 9\*9 referentes aos elementos da coluna, somando um máximo de 162. A Figura a seguir mostra um possível estado da nossa cadeia de Markov, que possui função de custo 114.
 
 ```{r echo=FALSE}
 
@@ -354,7 +355,7 @@ resolve_sudoku(sudoku_matrix, 0.5, 1)
 
 ```
 
-Para o bom funcionamento do algoritmo do Simulated Annealing, é necessário que a cadeia de Markov associada possua a propriedade de irredutibilidade.  Uma cadeia de Markov é considerada irreduzível se for possível, a partir de qualquer estado, chegar a qualquer outro estado dentro do sistema com uma probabilidade maior que zero em um número finito de etapas. Em outras palavras, não há "blocos isolados" dentro da cadeia onde você não possa alcançar certos estados a partir de outros. Essa propriedade garante que todos os estados possíveis do espaço amostral vão ser visitados em um número finito de iterações.
+Para o bom funcionamento do algoritmo do Simulated Annealing, é necessário que a cadeia de Markov associada possua a propriedade de irredutibilidade.  Uma cadeia de Markov é considerada irredutível se for possível, a partir de qualquer estado, chegar a qualquer outro estado dentro do sistema com uma probabilidade maior que zero em um número finito de etapas. Em outras palavras, não há "blocos isolados" dentro da cadeia onde você não possa alcançar certos estados a partir de outros. Essa propriedade garante que todos os estados possíveis do espaço amostral vão ser visitados em um número finito de iterações.
 
 Podemos pensar em diversas maneiras de transitar entre estados na nossa cadeia de Markov. Vamos definir a nossa transição de estados da seguinte maneira:
 
@@ -413,7 +414,7 @@ Por fim, temos um algoritmo funcional para resolver quebra-cabeças Sudoku. Vale
 
 ## Avaliação do algoritmo
 
-Agora implementamos o pseudocódigo com a linguagem de programação R [@key-4]. Vamos verificar se o Simulated Annealing consegue encontrar a solução do Sudoku apresentada no início desse relatório. Escolhemos um número máximo de 100000 iterações e uma temperatura inicial de 0.5. Para implementação real, temos que adicionar alguns detalhes, como por exemplo: garantir que o algoritmo não mude os números inicias dados pelo Sudoku, que no caso chamamos de originais; gerar um estado inicial da nossa cadeia de markov; salvar o estado que resultou em uma melhor função de custo. O Código a seguir apresenta a função principal para a implementação do Simulated Annealing. O código completo, com todas as funções auxiliares utilizadas, está disponível em https://github.com/lyncoln/sa_sudoku.
+Agora implementamos o pseudocódigo com a linguagem de programação R [@key-4]. Vamos verificar se o Simulated Annealing consegue encontrar a solução do Sudoku apresentada no início desse relatório. Escolhemos um número máximo de 100000 iterações e uma temperatura inicial de 0.5. Para implementação real, temos que adicionar alguns detalhes, como por exemplo: garantir que o algoritmo não mude os números inicias dados pelo Sudoku, que no caso chamamos de originais e salvar o estado que resultou em uma melhor função de custo. O Código a seguir apresenta a função principal para a implementação do Simulated Annealing. O código completo, com todas as funções auxiliares utilizadas, está disponível em https://github.com/lyncoln/sa_sudoku.
 
 ```{r, echo = FALSE}
 set.seed(041123)
@@ -444,7 +445,7 @@ resolve_sudoku <- function(sudoku_matrix, temperatura, max_iter){
      }
      if(iter_cont%%1000 == 0){
        # Printa a função de custo do estado atual, a do melhor estado e temperatura a cada 1000 iterações
-       print(paste0("Melhor métrica: ",metrica_melhor," Metrica atual: ",metrica_estado," Iteração: ",iter_cont, " Temperatura ", temperatura))
+       print(paste0("Melhor métrica: ",metrica_melhor," Métrica atual: ",metrica_estado," Iteração: ",iter_cont, " Temperatura ", temperatura))
        
      }
      temperatura <- temperatura*0.99999 # Reduz a temperatura
@@ -496,7 +497,7 @@ for (x in 1:length(resultados)) {
   N = as.numeric(names(resultados[x]))
   solucoes <- sum(resultados[[x]] > 0)
   media <- mean(resultados[[x]][resultados[[x]] > 0])
-  desvio <- sd(resultados[[x]][resultados[[x]] > 0])
+  desvio <- round(sd(resultados[[x]][resultados[[x]] > 0]),2)
 
   df_aux <- data.frame(N = N, Solucoes = solucoes, `Media_Iteracoes` = media, Desvio = desvio)
   df_list <- c(df_list, list(df_aux))
@@ -506,8 +507,7 @@ df_tabela <- do.call(rbind, df_list)
 
 #Estilizando a tabela
 styled_table <- df_tabela |>
-  kableExtra::kbl() |>
-  kableExtra::kable_paper()
+  kableExtra::kbl() 
 
 styled_table
 ```
@@ -517,16 +517,16 @@ styled_table
 library(ggplot2)
 
 ggplot(df_tabela, aes(x = N, y = `Media_Iteracoes`)) +
-  geom_point() +
-  geom_line() +
+  geom_point(color = "darkred") +
+  geom_line(color = "darkgreen") +
   scale_x_continuous(breaks = seq(10,60,5), labels = seq(10,60,5))+
   labs(x = "Espa\u00E7os em branco", y = "M\u00E9dia de itera\u00E7\u00F5es ate solu\u00E7\u00E3o")+
   theme_minimal() 
 ```
 
 
-### Conclusões
+## Conclusões
 
-Observamos que ao aumentar a quantidade de espaços em branco, a média de iterações necessárias para resolver o quebra-cabeça tende a aumentar consideravelmente. No entanto, essa tendência não se verifica para todos os valores de N. Por exemplo, ao passarmos de 55 para 60 espaços em branco, notamos uma queda na média de iterações necessárias. Além disso, notamos que o algoritmo apresentou dificuldade em apenas 2 quebra-cabeças quando a quantidade de espaços em branco foi de 50. Esse dado ressalta a eficiencia geral do Simulated Annealing na resolução de quebra-cabeças Sudoku. Para melhorar o desempenho do algoritmo, uma alternativa seria explorar técnicas de resfriamento mais sofisticadas dentro do Simulated Annealing ou modificar a estratégia de transição de estados.
+Observamos que ao aumentar a quantidade de espaços em branco, a média de iterações necessárias para resolver o quebra-cabeça tende a aumentar consideravelmente. No entanto, essa tendência não se verifica para todos os valores de N. Por exemplo, ao passarmos de 55 para 60 espaços em branco, notamos uma queda na média de iterações necessárias. Além disso, notamos que o algoritmo apresentou dificuldade em apenas 2 quebra-cabeças quando a quantidade de espaços em branco foi de 50. Esse dado ressalta a eficiência geral do Simulated Annealing na resolução de quebra-cabeças Sudoku. Para melhorar o desempenho do algoritmo, uma alternativa seria explorar técnicas de resfriamento mais sofisticadas dentro do Simulated Annealing ou modificar a estratégia de transição de estados.
 
-### Referências
+## Referências

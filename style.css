@@ -1,0 +1,40 @@
+#sidebar h2 {
+    z-index: 200;
+    background-color: #870a28;
+    text-align: center;
+    padding: 0.809em;
+    display: block;
+    color: #fcfcfc;
+    font-size: 100%;
+    margin-top: 0px;
+    margin-bottom: 0.809em;
+}
+
+h1, h2, h3, h4, h5, h6, legend {
+    font-family: "Roboto Slab","ff-tisa-web-pro","Georgia",Arial,sans-serif;
+    font-weight: 700;
+    color: #00613c;
+}
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #00613c;
+    z-index: 200;
+    font-size: 16px;
+}
+
+#postamble {
+    color: #fcfcfc;
+    background: #870a28;
+    border-top: solid 10px #00613c;
+    font-family: "Lato","proxima-nova","Helvetica Neue",Arial,sans-serif;
+    font-size: 90%;
+    z-index: 400;
+    padding: 12px;
+}
+
